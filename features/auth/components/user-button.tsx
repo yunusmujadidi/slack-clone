@@ -1,4 +1,5 @@
 "use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -9,9 +10,12 @@ import {
 import { getInitialName } from "@/lib/utils";
 import { LogOut } from "lucide-react";
 import { User } from "next-auth";
-import { SignOut } from "../actions/sign-out";
+import { SignOut } from "../actions/signout";
+import { useCreateWorkspace } from "@/features/workspace/hooks/use-create-workspace";
+import { Button } from "@/components/ui/button";
 
 export const UserButton = ({ user }: { user: User | undefined }) => {
+  const { onOpen } = useCreateWorkspace();
   const fallback = getInitialName(user?.name ?? "User");
   return (
     <DropdownMenu>
@@ -22,9 +26,18 @@ export const UserButton = ({ user }: { user: User | undefined }) => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="right" align="center" className="w-60">
-        <DropdownMenuItem className="cursor-pointer" onClick={() => SignOut()}>
-          <LogOut className="mr-2" /> Logout
-        </DropdownMenuItem>
+        <form
+          action={() => {
+            SignOut();
+          }}
+        >
+          <button className="w-full" type="submit">
+            <DropdownMenuItem className="cursor-pointer">
+              <LogOut className="mr-2" /> Logout
+            </DropdownMenuItem>
+          </button>
+        </form>
+        <Button onClick={onOpen}>Open</Button>
       </DropdownMenuContent>
     </DropdownMenu>
   );

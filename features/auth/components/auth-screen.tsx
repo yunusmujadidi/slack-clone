@@ -1,15 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Session } from "next-auth";
 
-import { Button } from "@/components/ui/button";
 import { SignInCard } from "./signin-card";
 import { SignUpCard } from "./signup-card";
 import { SignInFlow } from "@/lib/type";
-import { SignOut } from "../actions/sign-out";
 
-export const AuthScreen = ({ session }: { session: Session | null }) => {
+export const AuthScreen = () => {
   const [state, setState] = useState<SignInFlow>("sign-in");
 
   return (
@@ -22,8 +19,6 @@ export const AuthScreen = ({ session }: { session: Session | null }) => {
           ) : (
             <SignUpCard setState={setState} />
           )}
-
-          {session && <Button onClick={() => SignOut()}>Logout</Button>}
         </div>
       </div>
     </>

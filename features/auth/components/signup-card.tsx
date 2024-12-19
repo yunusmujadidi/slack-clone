@@ -25,8 +25,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SignInFlow } from "@/lib/type";
-import { SignInGithub, SignInGoogle } from "../actions/sign-in";
-import { SignUp } from "../actions/sign-up";
+import { SignInGithub, SignInGoogle } from "../actions/signin";
+import { SignUp } from "../actions/signup";
 
 const signUpSchema = z
   .object({

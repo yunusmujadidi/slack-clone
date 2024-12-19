@@ -27,7 +27,7 @@ import {
   SignInCredentials,
   SignInGithub,
   SignInGoogle,
-} from "../actions/sign-in";
+} from "../actions/signin";
 import { toast } from "sonner";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
