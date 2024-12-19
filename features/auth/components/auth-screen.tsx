@@ -9,7 +9,7 @@ import { SignUpCard } from "./signup-card";
 import { SignInFlow } from "@/lib/type";
 import { SignOut } from "../actions/sign-out";
 
-export const AuthScreen = ({ user }: { user: Session | null }) => {
+export const AuthScreen = ({ session }: { session: Session | null }) => {
   const [state, setState] = useState<SignInFlow>("sign-in");
 
   return (
@@ -23,7 +23,7 @@ export const AuthScreen = ({ user }: { user: Session | null }) => {
             <SignUpCard setState={setState} />
           )}
 
-          {user && <Button onClick={() => SignOut()}>Logout</Button>}
+          {session && <Button onClick={() => SignOut()}>Logout</Button>}
         </div>
       </div>
     </>

@@ -6,9 +6,11 @@ import { hash } from "bcryptjs";
 export const SignUp = async ({
   email,
   password,
+  name,
 }: {
   email: string;
   password: string;
+  name: string;
 }) => {
   try {
     const existingUser = await prisma.user.findUnique({
@@ -24,6 +26,7 @@ export const SignUp = async ({
     await prisma.user.create({
       data: {
         email,
+        name,
         password: hashPassword,
       },
     });

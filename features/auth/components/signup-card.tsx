@@ -31,6 +31,7 @@ import { SignUp } from "../actions/sign-up";
 const signUpSchema = z
   .object({
     email: z.string().email("Invalid email address"),
+    name: z.string().min(3, "Name field must be at least 3 characters"),
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string(),
   })
@@ -50,6 +51,7 @@ export const SignUpCard = ({ setState }: SignUpProps) => {
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
+      name: "",
       password: "",
       confirmPassword: "",
     },
@@ -61,6 +63,7 @@ export const SignUpCard = ({ setState }: SignUpProps) => {
         const result = await SignUp({
           email: values.email,
           password: values.password,
+          name: values.name,
         });
         toast.success(result.message);
       } catch (error) {
@@ -74,11 +77,30 @@ export const SignUpCard = ({ setState }: SignUpProps) => {
     <Card className="w-full h-full p-8">
       <CardHeader className="px-0 pt-0">
         <CardTitle className="text-2xl">Create a new account</CardTitle>
-        <CardDescription>Use credentials or other options to</CardDescription>
+        <CardDescription>
+          Enter your name, email and password to create a new account.
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2 px-0 py-0">
         <Form {...form}>
           <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Full name"
+                      type="text"
+                      disabled={isPending}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
