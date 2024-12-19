@@ -11,11 +11,8 @@ import { getInitialName } from "@/lib/utils";
 import { LogOut } from "lucide-react";
 import { User } from "next-auth";
 import { SignOut } from "../actions/signout";
-import { useCreateWorkspace } from "@/features/workspace/hooks/use-create-workspace";
-import { Button } from "@/components/ui/button";
 
 export const UserButton = ({ user }: { user: User | undefined }) => {
-  const { onOpen } = useCreateWorkspace();
   const fallback = getInitialName(user?.name ?? "User");
   return (
     <DropdownMenu>
@@ -25,7 +22,7 @@ export const UserButton = ({ user }: { user: User | undefined }) => {
           <AvatarFallback className="rounded-lg">{fallback}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent side="right" align="center" className="w-60">
+      <DropdownMenuContent align="center" className="w-60">
         <form
           action={() => {
             SignOut();
@@ -37,7 +34,6 @@ export const UserButton = ({ user }: { user: User | undefined }) => {
             </DropdownMenuItem>
           </button>
         </form>
-        <Button onClick={onOpen}>Open</Button>
       </DropdownMenuContent>
     </DropdownMenu>
   );
