@@ -3,7 +3,9 @@
 import { getCurrentUser } from "@/features/auth/actions/get-current-user";
 import { prisma } from "@/lib/prisma";
 
-export const getWorkspace = async ({ id }: { id?: string } = {}) => {
+export const getWorkspace = async ({
+  workspaceId: workspaceId,
+}: { workspaceId?: string } = {}) => {
   const currentUser = await getCurrentUser();
   if (!currentUser) {
     throw new Error("Unauthorized");
@@ -12,7 +14,7 @@ export const getWorkspace = async ({ id }: { id?: string } = {}) => {
   return prisma.workspace.findFirst({
     where: {
       userId: currentUser.id,
-      ...(id && { id }),
+      ...(workspaceId && { id: workspaceId }),
     },
   });
 };
@@ -24,6 +26,19 @@ export const getFirstWorkspace = async () => {
   }
 
   return prisma.workspace.findFirst({
+    where: {
+      userId: currentUser.id,
+    },
+  });
+};
+
+export const getWorkspaces = async () => {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    throw new Error("Unauthorized");
+  }
+
+  return prisma.workspace.findMany({
     where: {
       userId: currentUser.id,
     },
