@@ -27,7 +27,7 @@ export const WorkshopSwitcer = ({
       <DropdownMenuTrigger asChild>
         <Button className="size-9 bg-gray-500 hover:bg-gray-500/80 transition">
           <span className="text-slate-800 text-xl font-semibold">
-            {workspace.name.charAt(1).toUpperCase()}
+            {workspace.name.charAt(0).toUpperCase()}
           </span>
         </Button>
       </DropdownMenuTrigger>

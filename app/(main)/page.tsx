@@ -1,13 +1,18 @@
-import { getWorkspace } from "@/features/workspace/actions/get-workspace";
-import { HomeClient } from "./home-client";
-import { redirect } from "next/navigation";
+"use client";
 
-const Home = async () => {
-  const workspace = await getWorkspace();
-  if (workspace) {
-    redirect(`/workspace/${workspace.id}`);
-  }
-  return <HomeClient />;
+import { useCreateWorkspace } from "@/features/workspace/hooks/use-create-workspace";
+
+import { useEffect } from "react";
+
+const Home = () => {
+  const { isOpen, onOpen } = useCreateWorkspace();
+
+  useEffect(() => {
+    if (!isOpen) {
+      onOpen();
+    }
+  }, [onOpen, isOpen]);
+  return <></>;
 };
 
 export default Home;

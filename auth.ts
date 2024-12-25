@@ -62,4 +62,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
   },
+
+  // session: {
+  //   strategy: "database",
+  //   maxAge: 24 * 60 * 60, // 24 hours
+  // },
+  // callbacks: {
+  //   async session({ session, user }) {
+  //     if (session.user) {
+  //       session.user.id = user.id;
+  //     }
+  //     return session;
+  //   },
+  // },
+  // debug: true,
+  // events: {
+  //   signOut: async () => {
+  //     await prisma.session.deleteMany();
+  //   },
+  // },
 });

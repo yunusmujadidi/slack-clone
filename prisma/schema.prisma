@@ -17,6 +17,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   workspaces    Workspace[]
+  members       Member[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -68,4 +69,27 @@ model Workspace {
   joinCode String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Member    Member[]
+
+  @@index([userId])
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+model Member {
+  id          String @id @default(cuid())
+  role        Role   @default(MEMBER)
+  userId      String
+  workspaceId String
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([userId, workspaceId])
 }
